@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Loan Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Personal Loan Application</h1>
+        <form id="loanForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income">Annual Income:</label>
+                <input type="number" id="income" required>
+            </div>
+            <div class="form-group">
+                <label for="cibil">CIBIL Score (300-900):</label>
+                <input type="number" id="cibil" min="300" max="900" required>
+            </div>
+            <button type="submit">Check Eligibility</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('loanForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const income = parseInt(document.getElementById('income').value);
+            const cibil = parseInt(document.getElementById('cibil').value);
+            
+            const messageDiv = document.getElementById('message');
+            messageDiv.style.display = 'block';
+
+            if (age < 18 || age > 58) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = "NO LOAN OFFERS AVAILABLE FOR THE PEOPLE WHO'S AGE IS BELOW 18 AND ABOVE 58. Thank You...";
+                return;
+            }
+
+            if (income < 350000) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = "NO OFFERS FOUND";
+                return;
+            }
+
+            if (cibil < 300 || cibil > 900) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = "Invalid CIBIL Score. Score must be between 300 and 900.";
+                return;
+            }
+            if((age >= 18 && age <=45) &&(income >= 350000 && income <= 800000) ){
+                if (cibil >= 300 || cibil <= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 90% of income.Rate of intrest is 11.5%.`;
+                }
+            }
+
+            
+          
+            if((age >= 18 && age <=45) &&(income >= 350000 && income <= 800000)){
+                if (cibil > 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 120% of income.Rate of intrest is 11%.`;
+                }
+            }
+             if((age >= 18 && age <=45) &&(income >= 800000 && income <= 1500000)){
+                if (cibil >= 300 || cibil <= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 80% of income.Rate of intrest is 12.5%.`;
+                }
+            }
+            if((age >= 18 && age <=45) &&(income >= 800000 && income <= 1500000)){
+                if (cibil >= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 90% of income.Rate of intrest is 11.75%.`;
+                }
+            }
+             if((age >= 18 && age <=45) &&(income >1500000)){
+                if (cibil >= 300 || cibil <= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 90% of income.Rate of intrest is 12.5%.`;
+                }
+            }
+            if((age >= 18 && age <=45) &&(income > 1500000)){
+                if (cibil >= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 100% of income.Rate of intrest is 11.75%.`;
+                }
+            }
+             if((age >= 46 && age <=58) &&(income >= 350000 && income <= 800000)){
+                if (cibil >= 300 || cibil <= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 70% of income.Rate of intrest is 10.5%.`;
+                }
+            }
+             if((age >= 46 && age <=58) &&(income >= 350000 && income <= 800000)){
+                if (cibil > 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 75% of income.Rate of intrest is 10%.`;
+                }
+            }
+             if((age >= 46 && age <=58) &&(income >= 800000 && income <= 1500000)){
+                if (cibil >= 300 || cibil <= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 80% of income.Rate of intrest is 10.5%.`;
+                }
+            }
+             if((age >= 46 && age <=58) &&(income >= 800000 && income <= 1500000)){
+                if (cibil > 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 80% of income.Rate of intrest is 10%.`;
+                }
+            }
+            if((age >= 46 && age <=58) &&(income > 1500000)){
+                if (cibil >= 300 || cibil <= 650){
+                    messageDiv.className = 'message success';
+            messageDiv.textContent = `Congratulations ${name}! You are eligible for a personal loan. The loan range is 40% to 70% of income.Rate of intrest is 10.75%.`;
+                }
+            }
+            
+         });
+    </script>
+</body>
+</html>
